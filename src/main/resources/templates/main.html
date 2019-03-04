@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Thymeleaf</title>
@@ -11,8 +11,10 @@
     <!--<div th:text="#{gretting}"></div>-->
 
     <form method="post" th:action="@{addGoods}">
-        <input th:name="goods_name" th:type="text">
-        <input name="goods_price" th:type="text">
+        <input name="goods_name" th:type="text" placeholder="goods name">
+        <input name="goods_price" th:type="text" placeholder="goods price">
+        <input name="goods_availability" th:type="text" placeholder="goods availability">
+        <input name="goods_sort" th:type="text" placeholder="goods sort">
         <button th:type="submit">Add goods</button>
     </form>
 
@@ -21,11 +23,18 @@
     </form>
 
     <div th:each="good:${goods}">
-        <div th:if="${good.price} < 30"> <!--&gt; - соответствует символу >-->
-            <td th:text="${good.id}+': goods id'"> </td>
-            <td th:text="${good.name}+': goods name'"> </td>
-            <td th:text="${good.price}+': goods price'"> </td>
-            <div th:text="${good.price} > 15 ? 'high price' : 'low price'"></div>
+        <div th:if="${good.availability}" th:object="${good}"> <!--&gt; - соответствует символу >-->
+            <td th:text="|*{id} :goods id|"> </td>
+            <td th:text="*{name}"> </td>
+            <td th:text="*{price}"> </td>
+            <td th:text="*{availability}"> </td>
+            <div th:text="*{price} > 15 ? 'high price' : 'low price'" style="display: inline;"></div>
+            <div th:with="currPrice=*{price}" th:text="${currPrice}" style="display: inline;"></div>
+            <div th:switch="*{sort}">
+                <input th:case="first" value="first sort">
+                <input th:case="second" value="second sort">
+                <input th:case="*" value="undefined sort">
+            </div>
         </div>
     </div>
 

@@ -12,6 +12,25 @@ public class Goods {
     private long id;
     private String name;
     private Float price;
+    @Column(name = "availability")
+    private boolean availability;
+    private String sort;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 
     public Float getPrice() {
         return price;

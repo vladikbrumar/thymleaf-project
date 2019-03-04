@@ -21,10 +21,14 @@ public class MainController {
 
     @PostMapping("/addGoods")
     public String addGoods(@RequestParam(value = "goods_name") String goodsName,
-                           @RequestParam(value = "goods_price") String goodsPrice) {
+                           @RequestParam(value = "goods_price") String goodsPrice,
+                           @RequestParam(value = "goods_availability", defaultValue = "false") String goodsAvailability,
+                           @RequestParam(value = "goods_sort", defaultValue = "third") String goodsSort) {
         Goods good = new Goods();
         good.setName(goodsName);
         good.setPrice(Float.parseFloat(goodsPrice));
+        good.setAvailability(Boolean.parseBoolean(goodsAvailability));
+        good.setSort(goodsSort);
         goodsRepository.save(good);
         return "main";
     }
