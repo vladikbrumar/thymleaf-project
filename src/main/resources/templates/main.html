@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+</head>
+<body>
+    <!--<div th:text="#{sometext}"></div>-->
+    <!--<div th:text="#{gretting}"></div>-->
+
+    <form method="post" th:action="@{addGoods}">
+        <input th:name="goods_name" th:type="text">
+        <input name="goods_price" th:type="text">
+        <button th:type="submit">Add goods</button>
+    </form>
+
+    <form method="post" th:action="@{showGoods}">
+        <button th:type="submit">Show goods</button>
+    </form>
+
+    <div th:each="good:${goods}">
+        <div th:if="${good.price} < 30"> <!--&gt; - соответствует символу >-->
+            <td th:text="${good.id}+': goods id'"> </td>
+            <td th:text="${good.name}+': goods name'"> </td>
+            <td th:text="${good.price}+': goods price'"> </td>
+            <div th:text="${good.price} > 15 ? 'high price' : 'low price'"></div>
+        </div>
+    </div>
+
+</body>
+</html>
